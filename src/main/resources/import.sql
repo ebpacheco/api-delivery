@@ -11,3 +11,6 @@ INSERT INTO restaurante (nome, taxa_frete, cozinha_id, forma_pagamento_id) VALUE
 INSERT INTO permissao (nome, descricao) VALUES ("Administrador", "Pode administrar o sistema");
 INSERT INTO permissao (nome, descricao) VALUES ("Consumidor", "Pode realizar pedido");
 INSERT INTO permissao (nome, descricao) VALUES ("Prestador de servico", "Pode se cadastrar no sistema");
+
+INSERT INTO estado(nome) VALUES ("Sao Paulo");
+INSERT INTO estado(nome) VALUES ("Rio de Janeiro");

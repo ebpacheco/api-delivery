@@ -7,21 +7,21 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
 
 import com.algaworks.algafood.AlgafoodApiApplication;
-import com.algaworks.algafood.domain.model.Permissao;
-import com.algaworks.algafood.domain.repository.PermissaoRepository;
+import com.algaworks.algafood.domain.model.Estado;
+import com.algaworks.algafood.domain.repository.EstadoRepository;
 
-public class ConsultaPermissaoMain {
+public class ConsultarEstadoMain {
 
 	public static void main(String[] args) {
 
 		ApplicationContext applicationContext = new SpringApplicationBuilder(AlgafoodApiApplication.class)
 				.web(WebApplicationType.NONE).run(args);
 
-		PermissaoRepository permissoes = applicationContext.getBean(PermissaoRepository.class);
+		EstadoRepository estados = applicationContext.getBean(EstadoRepository.class);
 
-		List<Permissao> todasPermissoes = permissoes.listar();
-		for (Permissao permissao : todasPermissoes) {
-			System.out.println(permissao.getNome());
+		List<Estado> todosEstados = estados.listar();
+		for (Estado estado : todosEstados) {
+			System.out.println(estado.getNome());
 		}
 	}
 }

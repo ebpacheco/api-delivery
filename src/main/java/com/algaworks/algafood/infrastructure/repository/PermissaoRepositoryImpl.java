@@ -12,7 +12,7 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 
 @Component
-public class PermissaoImpl implements PermissaoRepository {
+public class PermissaoRepositoryImpl implements PermissaoRepository {
 
 	@PersistenceContext
 	private EntityManager manager;
