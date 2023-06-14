@@ -22,7 +22,7 @@ public class CozinhaRepositoryImpl implements CozinhaRepository {
 	public List<Cozinha> todas() {
 		TypedQuery<Cozinha> query = manager.createQuery("FROM Cozinha", Cozinha.class);
 		return query.getResultList();
-//		return manager.createQuery("FROM cozinha", Cozinha.class).getResultList();
+//		return manager.createQuery("FROM Cozinha", Cozinha.class).getResultList();
 	}
 
 	@Override

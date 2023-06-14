@@ -12,5 +12,8 @@ INSERT INTO permissao (nome, descricao) VALUES ("Administrador", "Pode administr
 INSERT INTO permissao (nome, descricao) VALUES ("Consumidor", "Pode realizar pedido");
 INSERT INTO permissao (nome, descricao) VALUES ("Prestador de servico", "Pode se cadastrar no sistema");
 
-INSERT INTO estado(nome) VALUES ("Sao Paulo");
-INSERT INTO estado(nome) VALUES ("Rio de Janeiro");
+INSERT INTO estado(id, nome) VALUES (1, "Sao Paulo");
+INSERT INTO estado(id, nome) VALUES (2, "Rio de Janeiro");
+
+INSERT INTO cidade(nome, estado_id) VALUES ("Campinas", 1);
+INSERT INTO cidade(nome, estado_id) VALUES ("Niteroi", 2);
