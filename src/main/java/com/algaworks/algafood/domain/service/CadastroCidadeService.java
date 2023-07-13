@@ -32,7 +32,9 @@ public class CadastroCidadeService {
 
 	public void excluir(Long cidadeId) {
 		try {
-			cidadeRepository.deleteById(cidadeId);
+//			cidadeRepository.deleteById(cidadeId);
+			cidadeRepository.delete(
+					cidadeRepository.findById(cidadeId).orElseThrow(() -> new EmptyResultDataAccessException(1)));
 
 		} catch (EmptyResultDataAccessException e) {
 			throw new EntidadeNaoEncontradaException(

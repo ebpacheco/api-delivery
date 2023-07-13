@@ -22,7 +22,9 @@ public class CadastroEstadoService {
 
 	public void excluir(Long estadoId) {
 		try {
-			estadoRepository.deleteById(estadoId);
+//			estadoRepository.deleteById(estadoId);
+			estadoRepository.delete(
+					estadoRepository.findById(estadoId).orElseThrow(() -> new EmptyResultDataAccessException(1)));
 
 		} catch (EmptyResultDataAccessException e) {
 			throw new EntidadeNaoEncontradaException(
