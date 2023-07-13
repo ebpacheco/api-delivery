@@ -3,6 +3,7 @@ package com.algaworks.algafood.api.controller;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,15 +37,15 @@ public class RestauranteController {
 
 	@GetMapping
 	public List<Restaurante> listar() {
-		return restauranteRepository.listar();
+		return restauranteRepository.findAll();
 	}
 
 	@GetMapping("/{restauranteId}")
 	public ResponseEntity<Restaurante> buscar(@PathVariable Long restauranteId) {
-		Restaurante restaurante = restauranteRepository.buscar(restauranteId);
+		Optional<Restaurante> restaurante = restauranteRepository.findById(restauranteId);
 
-		if (restaurante != null) {
-			return ResponseEntity.ok(restaurante);
+		if (restaurante.isPresent()) {
+			return ResponseEntity.ok(restaurante.get());
 		}
 
 		return ResponseEntity.notFound().build();
@@ -63,7 +64,7 @@ public class RestauranteController {
 	@PutMapping("/{restauranteId}")
 	public ResponseEntity<?> atualizar(@PathVariable Long restauranteId, @RequestBody Restaurante restaurante) {
 		try {
-			Restaurante restauranteAtual = restauranteRepository.buscar(restauranteId);
+			Restaurante restauranteAtual = restauranteRepository.findById(restauranteId).orElse(null);
 
 			if (restauranteAtual != null) {
 				BeanUtils.copyProperties(restaurante, restauranteAtual, "id");
@@ -82,7 +83,7 @@ public class RestauranteController {
 	@PatchMapping("/{restauranteId}")
 	public ResponseEntity<?> atualizarParcial(@PathVariable Long restauranteId,
 			@RequestBody Map<String, Object> campos) {
-		Restaurante restauranteAtual = restauranteRepository.buscar(restauranteId);
+		Restaurante restauranteAtual = restauranteRepository.findById(restauranteId).orElse(null);
 
 		if (restauranteAtual == null) {
 			return ResponseEntity.notFound().build();
@@ -94,7 +95,7 @@ public class RestauranteController {
 
 	}
 
-	private void merge(Map<String, Object> dadosOrigem, Restaurante restauranteDestino) {
+	private void merge(Map<String, Object> dadosOrigem, Restaurante restauranteAtual) {
 		ObjectMapper objectMapper = new ObjectMapper();
 		Restaurante restauranteOrigem = objectMapper.convertValue(dadosOrigem, Restaurante.class);
 
@@ -105,7 +106,7 @@ public class RestauranteController {
 			Object novoValor = ReflectionUtils.getField(field, restauranteOrigem);
 
 //				System.out.println(nomePropriedade + " = " + valorPropriedade + " = " + novoValor);
-			ReflectionUtils.setField(field, restauranteDestino, novoValor);
+			ReflectionUtils.setField(field, restauranteAtual, novoValor);
 		});
 	}
 }
