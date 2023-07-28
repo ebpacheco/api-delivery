@@ -18,8 +18,8 @@ INSERT INTO cidade(id, nome, estado_id) VALUES (3, 'São Paulo', 2);
 INSERT INTO cidade(id, nome, estado_id) VALUES (4, 'Campinas', 2);
 INSERT INTO cidade(id, nome, estado_id) VALUES (5, 'Fortaleza', 3);
 
-INSERT INTO restaurante (id, nome, taxa_frete, cozinha_id) VALUES (1, 'Thai Delivery', 9.50, 1);
-INSERT INTO restaurante (id, nome, taxa_frete, cozinha_id) VALUES (2, 'Tuk Tuk Comida Indiana', 15, 2);
-INSERT INTO restaurante (id, nome, taxa_frete, cozinha_id, endereco_cidade_id, endereco_cep, endereco_logradouro, endereco_numero, endereco_bairro) VALUES (3, 'Thai Gourmet', 10, 1, 1, '38400-999', 'Rua Joao Pinheiro', '100', 'Centro');
+INSERT INTO restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao) VALUES (1, 'Thai Delivery', 9.50, 1, utc_timestamp, utc_timestamp);
+INSERT INTO restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao) VALUES (2, 'Tuk Tuk Comida Indiana', 15, 2, utc_timestamp, utc_timestamp);
+INSERT INTO restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao, endereco_cidade_id, endereco_cep, endereco_logradouro, endereco_numero, endereco_bairro) VALUES (3, 'Thai Gourmet', 10, 1, utc_timestamp, utc_timestamp, 1, '38400-999', 'Rua Joao Pinheiro', '100', 'Centro');
 
 INSERT INTO restaurante_forma_pagamento(restaurante_id, forma_pagamento_id) VALUES (1, 1), (1, 2), (1, 3), (2, 3), (3, 2), (3, 3);
