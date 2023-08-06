@@ -1,10 +1,7 @@
 package com.algaworks.algafood.domain.model;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -22,7 +19,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Data
 @Entity
-public class Usuario {
+public class Grupo {
 
 	@EqualsAndHashCode.Include
 	@Id
@@ -32,18 +29,9 @@ public class Usuario {
 	@Column(nullable = true)
 	private String nome;
 
-	@Column(nullable = true)
-	private String email;
-
-	@Column(nullable = true)
-	private String senha;
-
-	@CreationTimestamp
-	@Column(nullable = true, columnDefinition = "datetime")
-	private LocalDateTime dataCadastro;
-
 	@JsonIgnore
 	@ManyToMany
-	@JoinTable(name = "usuario_grupo", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "grupo_id"))
-	private List<Grupo> grupos = new ArrayList<>();
+	@JoinTable(name = "grupo_permissao", joinColumns = @JoinColumn(name = "group_id"), inverseJoinColumns = @JoinColumn(name = "permissao_id"))
+	private List<Permissao> permissoes = new ArrayList<>();
+
 }
