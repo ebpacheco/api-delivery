@@ -49,16 +49,16 @@ public class Pedido {
 	private LocalDateTime dataEntrega;
 
 	@ManyToOne
-	@JoinColumn(name = "usuario_cliente_id", nullable = false)
-	private Usuario cliente;
+	@JoinColumn(nullable = false)
+	private FormaPagamento formaPagamento;
 
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Restaurante restaurante;
 
 	@ManyToOne
-	@JoinColumn(nullable = false)
-	private FormaPagamento formaPagamento;
+	@JoinColumn(name = "usuario_cliente_id", nullable = false)
+	private Usuario cliente;
 
 	@OneToMany(mappedBy = "pedido")
 	private List<ItemPedido> itens = new ArrayList<>();
