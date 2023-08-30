@@ -35,6 +35,7 @@ public class CozinhaController {
 		return cozinhaRepository.findAll();
 	}
 
+//XML
 //	@GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
 //	public CozinhasXmlWrapper listarXml() {
 //		return new CozinhasXmlWrapper(cozinhaRepository.listar());
