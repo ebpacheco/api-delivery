@@ -24,8 +24,9 @@ import com.fasterxml.jackson.databind.exc.PropertyBindingException;
 @ControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
+	@Override
 	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
-			HttpHeaders headers, HttpStatus status, WebRequest request) {
+			HttpHeaders headers, HttpStatusCode status, WebRequest request) {
 		Throwable rootCause = ExceptionUtils.getRootCause(ex);
 
 		if (rootCause instanceof InvalidFormatException) {
@@ -43,7 +44,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 	}
 
 	private ResponseEntity<Object> handlePropertyBindingException(PropertyBindingException ex, HttpHeaders headers,
-			HttpStatus status, WebRequest request) {
+			HttpStatusCode status, WebRequest request) {
 		String path = joinPath(ex.getPath());
 
 		ProblemType problemType = ProblemType.MENSAGEM_INCOMPREENSIVEL;
@@ -55,12 +56,8 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 		return handleExceptionInternal(ex, problem, headers, status, request);
 	}
 
-	private String joinPath(List<Reference> references) {
-		return references.stream().map(ref -> ref.getFieldName()).collect(Collectors.joining("."));
-	}
-
 	private ResponseEntity<Object> handleInvalidFormatException(InvalidFormatException ex, HttpHeaders headers,
-			HttpStatus status, WebRequest request) {
+			HttpStatusCode status, WebRequest request) {
 
 		String path = joinPath(ex.getPath());
 
@@ -75,11 +72,15 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 		return handleExceptionInternal(ex, problem, headers, status, request);
 	}
 
+	private String joinPath(List<Reference> references) {
+		return references.stream().map(ref -> ref.getFieldName()).collect(Collectors.joining("."));
+	}
+
 	@ExceptionHandler(EntidadeNaoEncontradaException.class)
 	public ResponseEntity<?> handleEntidadeNaoEncontradaException(EntidadeNaoEncontradaException ex,
 			WebRequest request) {
 
-		HttpStatus status = HttpStatus.NOT_FOUND;
+		HttpStatusCode status = HttpStatus.NOT_FOUND;
 		ProblemType problemType = ProblemType.ENTIDADE_NAO_ENCONTRADA;
 		String detail = ex.getMessage();
 
@@ -91,7 +92,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(EntidadeEmUsoException.class)
 	public ResponseEntity<?> handleEntidadeEmUsoException(EntidadeEmUsoException ex, WebRequest request) {
 
-		HttpStatus status = HttpStatus.CONFLICT;
+		HttpStatusCode status = HttpStatus.CONFLICT;
 		ProblemType problemType = ProblemType.ENTIDADE_EM_USO;
 		String detail = ex.getMessage();
 
@@ -103,7 +104,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(NegocioException.class)
 	public ResponseEntity<?> handleNegocioException(NegocioException ex, WebRequest request) {
 
-		HttpStatus status = HttpStatus.BAD_REQUEST;
+		HttpStatusCode status = HttpStatus.BAD_REQUEST;
 		ProblemType problemType = ProblemType.ERRO_NEGOCIO;
 		String detail = ex.getMessage();
 
