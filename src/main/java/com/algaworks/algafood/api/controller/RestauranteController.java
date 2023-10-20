@@ -31,6 +31,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/restaurantes")
@@ -54,7 +55,7 @@ public class RestauranteController {
 
 	@PostMapping
 	@ResponseStatus(value = HttpStatus.CREATED)
-	public Restaurante adicionar(@RequestBody Restaurante restaurante) {
+	public Restaurante adicionar(@RequestBody @Valid Restaurante restaurante) {
 		try {
 			return cadastroRestauranteService.salvar(restaurante);
 		} catch (CozinhaNaoEncontradoException e) {
@@ -85,7 +86,6 @@ public class RestauranteController {
 
 		return atualizar(restauranteId, restauranteAtual);
 	}
-
 
 	private void merge(Map<String, Object> dadosOrigem, Restaurante restauranteAtual, HttpServletRequest request) {
 		ServletServerHttpRequest serverHttpRequest = new ServletServerHttpRequest(request);
