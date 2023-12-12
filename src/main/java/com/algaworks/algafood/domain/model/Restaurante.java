@@ -47,7 +47,8 @@ public class Restaurante {
 
 //	@NotNull
 //	@NotEmpty
-	@NotBlank // (groups = Groups.CadastroRestaurante.class)
+	@NotBlank // (message = "Nome é obrigatório")
+	// (groups =Groups.CadastroRestaurante.class)
 	@Column(nullable = false)
 	private String nome;
 
