@@ -8,7 +8,7 @@ import java.util.List;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.algaworks.algafood.Groups;
+import com.algaworks.algafood.core.validation.Groups;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -54,7 +54,8 @@ public class Restaurante {
 
 //	@DecimalMin("0")
 	@NotNull
-	@PositiveOrZero(message = "{TaxaFrete.invalida}") // (groups = Groups.CadastroRestaurante.class)
+	@PositiveOrZero // (message = "{TaxaFrete.invalida}") // (groups =
+					// Groups.CadastroRestaurante.class)
 	@Column(name = "taxa_frete", nullable = false)
 	private BigDecimal taxaFrete;
 

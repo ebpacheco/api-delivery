@@ -3,7 +3,7 @@ package com.algaworks.algafood.domain.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.algaworks.algafood.Groups;
+import com.algaworks.algafood.core.validation.Groups;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
