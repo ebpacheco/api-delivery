@@ -54,7 +54,7 @@ public class Restaurante {
 
 //	@DecimalMin("0")
 	@NotNull
-	@PositiveOrZero // (groups = Groups.CadastroRestaurante.class)
+	@PositiveOrZero(message = "{TaxaFrete.invalida}") // (groups = Groups.CadastroRestaurante.class)
 	@Column(name = "taxa_frete", nullable = false)
 	private BigDecimal taxaFrete;
 
