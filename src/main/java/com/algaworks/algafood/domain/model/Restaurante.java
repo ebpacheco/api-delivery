@@ -9,7 +9,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.algaworks.algafood.core.validation.Groups;
-import com.algaworks.algafood.core.validation.TaxaFrete;
+import com.algaworks.algafood.core.validation.Multiplo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -45,16 +45,17 @@ public class Restaurante {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-//	@NotNull
-//	@NotEmpty
+	// @NotNull
+	// @NotEmpty
 	@NotBlank // (message = "Nome é obrigatório")
 	// (groups =Groups.CadastroRestaurante.class)
 	@Column(nullable = false)
 	private String nome;
 
-//	@DecimalMin("0")
+	// @DecimalMin("0")
 	@NotNull
-	@TaxaFrete
+	// @TaxaFrete
+	@Multiplo(numero = 5)
 	// @PositiveOrZero // (message = "{TaxaFrete.invalida}") // (groups =
 	// Groups.CadastroRestaurante.class)
 	@Column(name = "taxa_frete", nullable = false)
