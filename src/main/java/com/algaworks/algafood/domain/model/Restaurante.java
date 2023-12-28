@@ -9,7 +9,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.algaworks.algafood.core.validation.Groups;
-import com.algaworks.algafood.core.validation.Multiplo;
+import com.algaworks.algafood.core.validation.ValorZeroIncluiDescricao;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -34,6 +34,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+@ValorZeroIncluiDescricao(valorField = "taxaFrete", descricaoField = "nome", descricaoObrigatoria = "Frete Gratis")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Getter
 @Setter
@@ -55,7 +56,7 @@ public class Restaurante {
 	// @DecimalMin("0")
 	@NotNull
 	// @TaxaFrete
-	@Multiplo(numero = 5)
+	// @Multiplo(numero = 5)
 	// @PositiveOrZero // (message = "{TaxaFrete.invalida}") // (groups =
 	// Groups.CadastroRestaurante.class)
 	@Column(name = "taxa_frete", nullable = false)
