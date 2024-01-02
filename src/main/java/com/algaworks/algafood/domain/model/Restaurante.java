@@ -28,6 +28,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.groups.ConvertGroup;
 import jakarta.validation.groups.Default;
 import lombok.EqualsAndHashCode;
@@ -57,8 +58,7 @@ public class Restaurante {
 	@NotNull
 	// @TaxaFrete
 	// @Multiplo(numero = 5)
-	// @PositiveOrZero // (message = "{TaxaFrete.invalida}") // (groups =
-	// Groups.CadastroRestaurante.class)
+	@PositiveOrZero(message = "{TaxaFrete.invalida}") // (groups = Groups.CadastroRestaurante.class)
 	@Column(name = "taxa_frete", nullable = false)
 	private BigDecimal taxaFrete;
 
