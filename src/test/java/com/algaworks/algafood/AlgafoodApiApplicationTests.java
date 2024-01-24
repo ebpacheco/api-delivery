@@ -8,6 +8,11 @@ class AlgafoodApiApplicationTests {
 
 	@Test
 	void contextLoads() {
+		// Cenario
+
+		// Acao
+
+		// Validacao
 	}
 
 }
