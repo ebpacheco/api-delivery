@@ -15,7 +15,7 @@ import com.algaworks.algafood.domain.service.CadastroCozinhaService;
 import jakarta.validation.ConstraintViolationException;
 
 @SpringBootTest
-public class CadastroCozinhaIntegrationTests {
+public class CadastroCozinhaIT {
 
 	@Autowired
 	CadastroCozinhaService cadastroCozinhaService;
