@@ -19,7 +19,7 @@ public class CadastroCozinhaIntegrationTests {
 	CadastroCozinhaService cadastroCozinhaService;
 
 	@Test
-	public void testarCadastroCozinhaComSucesso() {
+	public void deveAtribuirId_QuandoCadastraCozinhaComDadosCorretos() {
 //		public void testar_cadastro_cozinha_com_sucesso()
 		// Cenario
 		Cozinha novaCozinha = new Cozinha();
@@ -34,7 +34,7 @@ public class CadastroCozinhaIntegrationTests {
 	}
 
 	@Test
-	public void testarCadastroCozinhaSemNome() {
+	public void deveFalhar_QuandoCadastrarCozinhaSemNome() {
 
 		Exception exception = assertThrows(ConstraintViolationException.class, () -> {
 			Cozinha novaCozinha = new Cozinha();
