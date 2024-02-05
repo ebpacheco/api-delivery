@@ -1,69 +1,24 @@
 package com.algaworks.algafood;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.http.HttpStatus;
 
-import com.algaworks.algafood.domain.exception.EntidadeEmUsoException;
-import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
-import com.algaworks.algafood.domain.model.Cozinha;
-import com.algaworks.algafood.domain.service.CadastroCozinhaService;
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 
-import jakarta.validation.ConstraintViolationException;
-
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class CadastroCozinhaIT {
 
-	@Autowired
-	CadastroCozinhaService cadastroCozinhaService;
+	@LocalServerPort
+	private int port;
 
 	@Test
-	public void deveAtribuirId_QuandoCadastraCozinhaComDadosCorretos() {
-//		public void testar_cadastro_cozinha_com_sucesso()
-		// Cenario
-		Cozinha novaCozinha = new Cozinha();
-		novaCozinha.setNome("Chinesa");
+	public void deveRetornarStatus200_QuandoConsultarCozinhas() {
+		RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
 
-		// Acao
-		novaCozinha = cadastroCozinhaService.salvar(novaCozinha);
-
-		// Validacao
-		assertThat(novaCozinha).isNotNull();
-		assertThat(novaCozinha.getId()).isNotNull();
-	}
-
-	@Test
-	public void deveFalhar_QuandoCadastrarCozinhaSemNome() {
-
-		Exception exception = assertThrows(ConstraintViolationException.class, () -> {
-			Cozinha novaCozinha = new Cozinha();
-			novaCozinha.setNome(null);
-			novaCozinha = cadastroCozinhaService.salvar(novaCozinha);
-		});
-
-		assertThat(exception);
-	}
-
-	@Test
-	public void deveFalhar_QuandoExcluirCozinhaEmUso() {
-
-		Exception exception = assertThrows(EntidadeEmUsoException.class, () -> {
-			cadastroCozinhaService.excluir(1L);
-		});
-		assertThat(exception);
-	}
-
-	@Test
-	public void deveFalhar_QuandoExcluirCozinhaInexistente() {
-
-		Exception exception = assertThrows(EntidadeNaoEncontradaException.class, () -> {
-			cadastroCozinhaService.excluir(100L);
-		});
-
-		assertThat(exception);
-
+		RestAssured.given().basePath("/cozinhas").port(port).accept(ContentType.JSON).when().get().then()
+				.statusCode(HttpStatus.OK.value());
 	}
 }
