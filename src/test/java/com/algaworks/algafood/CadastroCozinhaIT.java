@@ -1,5 +1,7 @@
 package com.algaworks.algafood;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -61,6 +63,20 @@ public class CadastroCozinhaIT {
 				.when().post().then().statusCode(HttpStatus.CREATED.value());
 	}
 
+	@Test
+	public void deveRetornarRespostaEStatusCorretos_QuandoCozinhaExistente() {
+		RestAssured.given().pathParam("cozinhaId", 2).accept(ContentType.JSON)
+		.when().get("/{cozinhaId}")
+		.then().statusCode(HttpStatus.OK.value()).body("nome", equalTo("Brasileira"));
+	}
+	
+	@Test
+	public void deveRetornarStatus404_QuandoCozinhaInexistente() {
+		RestAssured.given().pathParam("cozinhaId", 100).accept(ContentType.JSON)
+		.when().get("/{cozinhaId}")
+		.then().statusCode(HttpStatus.NOT_FOUND.value());
+	}
+	
 	private void preparaDados() {
 		Cozinha cozinha1 = new Cozinha();
 		cozinha1.setNome("Indiana");
