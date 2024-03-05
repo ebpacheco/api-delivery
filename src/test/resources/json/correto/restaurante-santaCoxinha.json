@@ -1,0 +1,7 @@
+{
+	"nome": "Santa Coxinha",
+	"taxaFrete": 6,
+	"cozinha": {
+		"id": 1
+	}
+}
