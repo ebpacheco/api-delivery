@@ -8,7 +8,6 @@ import java.util.List;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.algaworks.algafood.core.validation.Groups;
 import com.algaworks.algafood.core.validation.ValorZeroIncluiDescricao;
 
 import jakarta.persistence.Column;
@@ -22,12 +21,6 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PositiveOrZero;
-import jakarta.validation.groups.ConvertGroup;
-import jakarta.validation.groups.Default;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -46,22 +39,23 @@ public class Restaurante {
 
 	// @NotNull
 	// @NotEmpty
-	@NotBlank // (message = "Nome é obrigatório")
+	// @NotBlank // (message = "Nome é obrigatório")
 	// (groups =Groups.CadastroRestaurante.class)
 	@Column(nullable = false)
 	private String nome;
 
 	// @DecimalMin("0")
-	@NotNull
+	// @NotNull
 	// @TaxaFrete
 	// @Multiplo(numero = 5)
-	@PositiveOrZero(message = "{TaxaFrete.invalida}") // (groups = Groups.CadastroRestaurante.class)
+	// @PositiveOrZero(message = "{TaxaFrete.invalida}") // (groups =
+	// Groups.CadastroRestaurante.class)
 	@Column(name = "taxa_frete", nullable = false)
 	private BigDecimal taxaFrete;
 
-	@Valid
-	@ConvertGroup(from = Default.class, to = Groups.CozinhaId.class)
-	@NotNull // (groups = Groups.CadastroRestaurante.class)
+	// @Valid
+	// @ConvertGroup(from = Default.class, to = Groups.CozinhaId.class)
+	// @NotNull // (groups = Groups.CadastroRestaurante.class)
 	@ManyToOne // (fetch = FetchType.LAZY)
 	@JoinColumn(name = "cozinha_id", nullable = false)
 	private Cozinha cozinha;
