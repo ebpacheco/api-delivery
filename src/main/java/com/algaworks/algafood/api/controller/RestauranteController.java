@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -89,10 +88,11 @@ public class RestauranteController {
 	public RestauranteDTO atualizar(@PathVariable Long restauranteId,
 			@RequestBody @Valid RestauranteInput restauranteInput) {
 		try {
-			Restaurante restaurante = restauranteInputDisassembler.toDomainObject(restauranteInput);
+//			Restaurante restaurante = restauranteInputDisassembler.toDomainObject(restauranteInput);
 			Restaurante restauranteAtual = cadastroRestauranteService.buscarOuFalhar(restauranteId);
-			BeanUtils.copyProperties(restaurante, restauranteAtual, "id", "formasPagamento", "endereco", "dataCadastro",
-					"produtos");
+			restauranteInputDisassembler.copyToDomainObject(restauranteInput, restauranteAtual);
+//			BeanUtils.copyProperties(restaurante, restauranteAtual, "id", "formasPagamento", "endereco", "dataCadastro",
+//					"produtos");
 			return restauranteDTOAssembler.toDTO(cadastroRestauranteService.salvar(restauranteAtual));
 		} catch (CozinhaNaoEncontradoException e) {
 			throw new NegocioException(e.getMessage());
