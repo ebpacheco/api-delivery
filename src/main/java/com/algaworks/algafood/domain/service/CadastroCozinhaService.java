@@ -30,6 +30,7 @@ public class CadastroCozinhaService {
 //			cozinhaRepository.deleteById(cozinhaId);
 			cozinhaRepository.delete(
 					cozinhaRepository.findById(cozinhaId).orElseThrow(() -> new EmptyResultDataAccessException(1)));
+			cozinhaRepository.flush();
 
 		} catch (EmptyResultDataAccessException e) {
 			throw new CozinhaNaoEncontradoException(cozinhaId);
