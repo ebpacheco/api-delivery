@@ -21,4 +21,9 @@ public class CadastroFormaPagamentoService {
 		return formaPagamentoAtual;
 	}
 
+	@Transactional
+	public FormaPagamento salvar(FormaPagamento formaPagamento) {
+		return formaPagamentoRepository.save(formaPagamento);
+	}
+
 }
