@@ -8,13 +8,24 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class CidadeInput {
+public class EnderecoInput {
 
 	@NotBlank
-	private String nome;
+	private String cep;
+
+	@NotBlank
+	private String logradouro;
+
+	@NotBlank
+	private String numero;
+
+	private String complemento;
+
+	@NotBlank
+	private String bairro;
 
 	@Valid
 	@NotNull
-	private EstadoIdInput estado;
+	private CidadeIdInput cidade;
 
 }
