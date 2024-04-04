@@ -73,4 +73,10 @@ insert into produto (nome, descricao, preco, ativo, restaurante_id) values ('Esp
 
 insert into restaurante_forma_pagamento (restaurante_id, forma_pagamento_id) values (1, 1), (1, 2), (1, 3), (2, 3), (3, 2), (3, 3), (4, 1), (4, 2), (5, 1), (5, 2), (6, 3);
 
-insert into grupo (nome) values ('Gerente'), ('Vendedor'), ('Secretaria'), ('Cadastrador')
+insert into grupo (nome) values ('Gerente'), ('Vendedor'), ('Secretaria'), ('Cadastrador');
+
+insert into usuario (id, nome, email, senha, data_cadastro) values (1, 'Eduardo', 'eduardo@teste.com', '123', utc_timestamp);
+insert into usuario (id, nome, email, senha, data_cadastro) values (2, 'Natany', 'natany@teste.com', '123', utc_timestamp);
+insert into usuario (id, nome, email, senha, data_cadastro) values (3, 'Renoia', 'renoia@teste.com', '123', utc_timestamp);
+insert into usuario (id, nome, email, senha, data_cadastro) values (4, 'Ariane', 'ariane@teste.com', '123', utc_timestamp);
+
