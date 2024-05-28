@@ -11,6 +11,7 @@ import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -51,7 +52,7 @@ public class Pedido {
 
 	private OffsetDateTime dataEntrega;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(nullable = false)
 	private FormaPagamento formaPagamento;
 
@@ -66,4 +67,17 @@ public class Pedido {
 	@OneToMany(mappedBy = "pedido")
 	private List<ItemPedido> itens = new ArrayList<>();
 
+	public void calcularValorTotal() {
+		this.subtotal = getItens().stream().map(item -> item.getPrecoTotal()).reduce(BigDecimal.ZERO, BigDecimal::add);
+
+		this.valorTotal = this.subtotal.add(this.taxaFrete);
+	}
+
+	public void definirFrete() {
+		setTaxaFrete(getRestaurante().getTaxaFrete());
+	}
+
+	public void atribuirPedidoAosItens() {
+		getItens().forEach(item -> item.setPedido(this));
+	}
 }
