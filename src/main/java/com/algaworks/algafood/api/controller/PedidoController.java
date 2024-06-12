@@ -23,7 +23,7 @@ import com.algaworks.algafood.domain.exception.NegocioException;
 import com.algaworks.algafood.domain.model.Pedido;
 import com.algaworks.algafood.domain.model.Usuario;
 import com.algaworks.algafood.domain.repository.PedidoRepository;
-import com.algaworks.algafood.domain.service.CadastroPedidoService;
+import com.algaworks.algafood.domain.service.EmissaoPedidoService;
 
 import jakarta.validation.Valid;
 
@@ -32,7 +32,7 @@ import jakarta.validation.Valid;
 public class PedidoController {
 
 	@Autowired
-	CadastroPedidoService cadastroPedidoService;
+	EmissaoPedidoService cadastroPedidoService;
 
 	@Autowired
 	PedidoRepository pedidoRepository;
