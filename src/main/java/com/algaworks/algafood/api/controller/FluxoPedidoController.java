@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.algaworks.algafood.domain.service.FluxoPedidoService;
 
 @RestController
-@RequestMapping(value = "/pedidos/{pedidoId}")
+@RequestMapping(value = "/pedidos/{codigoPedido}")
 public class FluxoPedidoController {
 
 	@Autowired
@@ -19,19 +19,19 @@ public class FluxoPedidoController {
 
 	@PutMapping(value = "/confirmacao")
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
-	public void confirmar(@PathVariable Long pedidoId) {
-		fluxoPedidoService.confirmar(pedidoId);
+	public void confirmar(@PathVariable String codigoPedido) {
+		fluxoPedidoService.confirmar(codigoPedido);
 	}
 
 	@PutMapping(value = "/cancelamento")
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
-	public void cancelar(@PathVariable Long pedidoId) {
-		fluxoPedidoService.cancelar(pedidoId);
+	public void cancelar(@PathVariable String codigoPedido) {
+		fluxoPedidoService.cancelar(codigoPedido);
 	}
 
 	@PutMapping(value = "/entrega")
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
-	public void entregar(@PathVariable Long pedidoId) {
-		fluxoPedidoService.entregar(pedidoId);
+	public void entregar(@PathVariable String codigoPedido) {
+		fluxoPedidoService.entregar(codigoPedido);
 	}
 }

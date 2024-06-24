@@ -52,9 +52,9 @@ public class PedidoController {
 		return pedidoResumoDTOAssembler.toCollectionDTO(todosPedidos);
 	}
 
-	@GetMapping("/{pedidoId}")
-	public PedidoDTO buscar(@PathVariable Long pedidoId) {
-		return pedidoDTOAssembler.toDTO(cadastroPedidoService.buscarOuFalhar(pedidoId));
+	@GetMapping("/{codigoPedido}")
+	public PedidoDTO buscar(@PathVariable String codigoPedido) {
+		return pedidoDTOAssembler.toDTO(cadastroPedidoService.buscarOuFalhar(codigoPedido));
 	}
 
 	@PostMapping
