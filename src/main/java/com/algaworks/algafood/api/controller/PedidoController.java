@@ -52,6 +52,24 @@ public class PedidoController {
 		return pedidoResumoDTOAssembler.toCollectionDTO(todosPedidos);
 	}
 
+	// GET Usando @JsonFilter
+//	@GetMapping
+//	public MappingJacksonValue listar(@RequestParam(required = false) String campos) {
+//		List<Pedido> pedidos = pedidoRepository.findAll();
+//		List<PedidoResumoDTO> pedidosDTO = pedidoResumoDTOAssembler.toCollectionDTO(pedidos);
+//		MappingJacksonValue pedidosWrapper = new MappingJacksonValue(pedidosDTO);
+//
+//		SimpleFilterProvider filterProvider = new SimpleFilterProvider();
+//		filterProvider.addFilter("pedidoFilter", SimpleBeanPropertyFilter.serializeAll());
+//
+//		if (StringUtils.isNotBlank(campos)) {
+//			filterProvider.addFilter("pedidoFilter", SimpleBeanPropertyFilter.filterOutAllExcept(campos.split(",")));
+//		}
+//
+//		pedidosWrapper.setFilters(filterProvider);
+//		return pedidosWrapper;
+//	}
+
 	@GetMapping("/{codigoPedido}")
 	public PedidoDTO buscar(@PathVariable String codigoPedido) {
 		return pedidoDTOAssembler.toDTO(cadastroPedidoService.buscarOuFalhar(codigoPedido));
