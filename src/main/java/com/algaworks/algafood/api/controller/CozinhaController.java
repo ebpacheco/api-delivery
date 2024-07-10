@@ -3,6 +3,10 @@ package com.algaworks.algafood.api.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -42,9 +46,11 @@ public class CozinhaController {
 	private CozinhaInputDisassembler cozinhaInputDisassembler;
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<CozinhaDTO> listar() {
-		List<Cozinha> cozinhas = cozinhaRepository.findAll();
-		return cozinhaDTOAssembler.toCollectionDTO(cozinhas);
+	public Page<CozinhaDTO> listar(@PageableDefault(size = 10) Pageable pageable) {
+		Page<Cozinha> cozinhasPage = cozinhaRepository.findAll(pageable);
+		List<CozinhaDTO> cozinhaDTO = cozinhaDTOAssembler.toCollectionDTO(cozinhasPage.getContent());
+		Page<CozinhaDTO> cozinhhaDTOPage = new PageImpl<>(cozinhaDTO, pageable, cozinhasPage.getTotalElements());
+		return cozinhhaDTOPage;
 	}
 
 //XML
