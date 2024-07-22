@@ -12,7 +12,7 @@ import com.algaworks.algafood.domain.model.dto.VendaDiaria;
 import com.algaworks.algafood.domain.service.VendaQueryService;
 
 @RestController
-@RequestMapping(path = "/estatistica")
+@RequestMapping(path = "/estatisticas")
 public class EstatisticasController {
 
 	@Autowired
