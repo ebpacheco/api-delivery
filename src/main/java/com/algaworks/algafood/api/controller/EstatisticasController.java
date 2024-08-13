@@ -34,9 +34,9 @@ public class EstatisticasController {
 
 	@GetMapping(path = "/vendas-diarias", produces = MediaType.APPLICATION_PDF_VALUE)
 	public ResponseEntity<byte[]> consultarVendasDiariasPdf(VendaDiariaFilter filtro,
-			@RequestParam(required = false, defaultValue = "+00:00") String timeOffset) {
+			@RequestParam(required = false, defaultValue = "+00:00") String timeOffSet) {
 
-		byte[] bytesPdf = vendaReportService.emitirVendasDiarias(filtro, timeOffset);
+		byte[] bytesPdf = vendaReportService.emitirVendasDiarias(filtro, timeOffSet);
 
 		var headers = new HttpHeaders();
 		headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=vendas-diarias.pdf");

@@ -21,14 +21,14 @@ public class PdfVendaReportService implements VendaReportService {
 	private VendaQueryService vendaQueryService;
 
 	@Override
-	public byte[] emitirVendasDiarias(VendaDiariaFilter filtro, String timeOffset) {
+	public byte[] emitirVendasDiarias(VendaDiariaFilter filtro, String timeOffSet) {
 		try {
 			var inputStream = this.getClass().getResourceAsStream("/relatorios/vendas-diarias.jasper");
 
 			var parametros = new HashMap<String, Object>();
 			parametros.put("REPORT_LOCALE", new Locale("pt", "BR"));
 
-			var vendasDiarias = vendaQueryService.consultarVendasDiarias(filtro, timeOffset);
+			var vendasDiarias = vendaQueryService.consultarVendasDiarias(filtro, timeOffSet);
 			var dataSource = new JRBeanCollectionDataSource(vendasDiarias);
 
 			var jasperPrint = JasperFillManager.fillReport(inputStream, parametros, dataSource);
