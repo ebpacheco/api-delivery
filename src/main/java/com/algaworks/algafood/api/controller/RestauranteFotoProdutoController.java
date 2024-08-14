@@ -34,14 +34,6 @@ public class RestauranteFotoProdutoController {
 	@PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public FotoProdutoDTO atualizarFoto(@PathVariable Long restauranteId, @PathVariable Long produtoId,
 			@Valid FotoProdutoInput fotoProdutoInput) {
-//		var nomeArquivo = UUID.randomUUID() + "_" + fotoProdutoInput.getArquivo().getOriginalFilename();
-//		var arquivoFoto = Path.of("C:\\Users\\DudatraK\\OneDrive\\Documentos\\projeto-algafood-fotos\\catalogo",
-//				nomeArquivo);
-//		try {
-//			fotoProdutoInput.getArquivo().transferTo(arquivoFoto);
-//		} catch (Exception e) {
-//			throw new RuntimeException(e);
-//		}
 
 		Produto produto = cadastroProdutoService.buscarOuFalhar(restauranteId, produtoId);
 		MultipartFile arquivo = fotoProdutoInput.getArquivo();
@@ -56,5 +48,17 @@ public class RestauranteFotoProdutoController {
 		return fotoProdutoDTOAssembler.toDTO(fotoSalva);
 
 	}
+
+//	@PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+//	public void atualizarFoto(@PathVariable Long restauranteId, @PathVariable Long produtoId,
+//			@Valid FotoProdutoInput fotoProdutoInput) {
+//	var nomeArquivo = UUID.randomUUID() + "_" + fotoProdutoInput.getArquivo().getOriginalFilename();
+//	var arquivoFoto = Path.of("C:\\Users\\DudatraK\\OneDrive\\Documentos\\projeto-algafood-fotos\\catalogo",
+//			nomeArquivo);
+//	try {
+//		fotoProdutoInput.getArquivo().transferTo(arquivoFoto);
+//	} catch (Exception e) {
+//		throw new RuntimeException(e);
+//	}
 
 }
