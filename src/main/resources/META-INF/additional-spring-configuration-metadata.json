@@ -1,5 +1,12 @@
-{"properties": [{
-  "name": "algafood.storage.local.diretorio-fotos",
-  "type": "java.lang.String",
-  "description": "A description for 'algafood.storage.local.diretorio-fotos'"
-}]}
+{"properties": [
+  {
+    "name": "algafood.storage.local.diretorio-fotos",
+    "type": "java.lang.String",
+    "description": "A description for 'algafood.storage.local.diretorio-fotos'"
+  },
+  {
+    "name": "algafood.storage.tipo",
+    "type": "java.lang.String",
+    "description": "A description for 'algafood.storage.tipo'"
+  }
+]}
