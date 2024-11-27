@@ -60,7 +60,9 @@
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId><!--$NO-MVN-MAN-VER$-->
+			<artifactId>lombok</artifactId>
+			<version>1.18.36</version><!--$NO-MVN-MAN-VER$-->
+			<scope>provided</scope>
 		</dependency>
 		<!--<dependency>
 			<groupId>com.fasterxml.jackson.dataformat</groupId>
@@ -134,12 +136,12 @@
 			<artifactId>aws-java-sdk-s3</artifactId>
 			<version>${aws-java-sdk-s3.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
-		</dependency>		
-		
+		</dependency>
+
 	</dependencies>
 
 	<build>
