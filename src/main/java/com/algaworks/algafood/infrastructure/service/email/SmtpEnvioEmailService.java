@@ -3,7 +3,6 @@ package com.algaworks.algafood.infrastructure.service.email;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
 import com.algaworks.algafood.core.email.EmailProperties;
@@ -13,7 +12,6 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import jakarta.mail.internet.MimeMessage;
 
-@Service
 public class SmtpEnvioEmailService implements EnvioEmailService {
 
 	@Autowired
@@ -28,7 +26,7 @@ public class SmtpEnvioEmailService implements EnvioEmailService {
 	@Override
 	public void enviar(Mensagem mensagem) {
 		try {
-			String corpo = processarTemplater(mensagem);
+			String corpo = processarTemplate(mensagem);
 
 			MimeMessage mimeMessage = mailSender.createMimeMessage();
 
@@ -45,7 +43,7 @@ public class SmtpEnvioEmailService implements EnvioEmailService {
 
 	}
 
-	private String processarTemplater(Mensagem mensagem) {
+	protected String processarTemplate(Mensagem mensagem) {
 		try {
 			Template template = freemakerConfig.getTemplate(mensagem.getCorpo());
 			return FreeMarkerTemplateUtils.processTemplateIntoString(template, mensagem.getVariaveis());
