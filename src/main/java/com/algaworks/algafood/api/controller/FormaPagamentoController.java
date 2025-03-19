@@ -47,7 +47,13 @@ public class FormaPagamentoController {
 	public ResponseEntity<List<FormaPagamentoDTO>> listar() {
 		List<FormaPagamento> todasFormasPagamento = formaPagamentoRepository.findAll();
 		List<FormaPagamentoDTO> formasPagamentoDTO = formaPagamentoDTOAssembler.toCollectionDTO(todasFormasPagamento);
-		return ResponseEntity.ok().cacheControl(CacheControl.maxAge(10, TimeUnit.SECONDS)).body(formasPagamentoDTO);
+		return ResponseEntity.ok()
+//				.cacheControl(CacheControl.maxAge(10, TimeUnit.SECONDS))
+//				.cacheControl(CacheControl.maxAge(10, TimeUnit.SECONDS).cachePrivate())
+				.cacheControl(CacheControl.maxAge(10, TimeUnit.SECONDS).cachePublic())
+//				.cacheControl(CacheControl.noCache())
+//				.cacheControl(CacheControl.noStore())
+				.body(formasPagamentoDTO);
 	}
 
 	@GetMapping(value = "/{formaPagamentoId}")
