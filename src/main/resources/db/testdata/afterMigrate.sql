@@ -36,9 +36,9 @@ INSERT INTO cozinha (id, nome) VALUES (2, 'Indiana');
 insert into cozinha (id, nome) values (3, 'Argentina');
 insert into cozinha (id, nome) values (4, 'Brasileira');
 
-INSERT INTO forma_pagamento(id, descricao) VALUES (1, 'Cartão de crédito');
-INSERT INTO forma_pagamento(id, descricao) VALUES (2, 'Cartão de débito'); 
-INSERT INTO forma_pagamento(id, descricao) VALUES (3, 'Dinheiro');
+INSERT INTO forma_pagamento(id, descricao, data_atualizacao) VALUES (1, 'Cartão de crédito', utc_timestamp);
+INSERT INTO forma_pagamento(id, descricao, data_atualizacao) VALUES (2, 'Cartão de débito', utc_timestamp); 
+INSERT INTO forma_pagamento(id, descricao, data_atualizacao) VALUES (3, 'Dinheiro', utc_timestamp);
 
 INSERT INTO permissao (id, nome, descricao) VALUES (1, 'CONSULTAR_COZINHAS', 'Permite consultar cozinhas');
 INSERT INTO permissao (id , nome, descricao) VALUES (2, 'EDITAR_COZINHAS', 'Permite editar cozinhas');
