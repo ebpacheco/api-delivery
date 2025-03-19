@@ -22,5 +22,6 @@ public class WebConfig implements WebMvcConfigurer {
 	@Bean
 	Filter shallowEtagHeaderFilter() {
 		return new ShallowEtagHeaderFilter();
+//		ShallowEtagHeaderFilter.disableContentCaching(request.getRequest()); // DESABILITA o filtro mas deve ser usado no controller
 	}
 }
