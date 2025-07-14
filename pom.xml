@@ -145,12 +145,13 @@
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-			<version>2.2.0</version>
+			<version>2.6.0</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-starter-webflux-api</artifactId>
-			<version>2.2.0</version>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>1.8.0</version>
 		</dependency>
 
 		<dependency>
@@ -160,7 +161,11 @@
 			<scope>provided</scope>
 		</dependency>
 
-
+		<dependency>
+			<groupId>com.algaworks</groupId>
+			<artifactId>algafood-java-client</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<build>
