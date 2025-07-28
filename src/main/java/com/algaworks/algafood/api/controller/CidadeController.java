@@ -25,6 +25,7 @@ import com.algaworks.algafood.domain.model.Cidade;
 import com.algaworks.algafood.domain.repository.CidadeRepository;
 import com.algaworks.algafood.domain.service.CadastroCidadeService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
@@ -45,17 +46,20 @@ public class CidadeController {
 	@Autowired
 	private CidadeInputDisassembler cidadeInputDisassembler;
 
+	@Operation(summary = "Lista as cidades")
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<CidadeDTO> listar() {
 		return cidadeDTOAssembler.toCollectionDTO(cidadeRepository.findAll());
 	}
 
+	@Operation(summary = "Busca uma cidade por ID")
 	@GetMapping("/{cidadeId}")
 	public CidadeDTO buscar(@PathVariable Long cidadeId) {
 		Cidade cidade = cadastroCidadeService.buscarOuFalhar(cidadeId);
 		return cidadeDTOAssembler.toDTO(cidade);
 	}
 
+	@Operation(summary = "Cadastra uma cidade")
 	@PostMapping
 	@ResponseStatus(value = HttpStatus.CREATED)
 	public CidadeDTO adicionar(@RequestBody @Valid CidadeInput cidadeInput) {
@@ -67,6 +71,7 @@ public class CidadeController {
 		}
 	}
 
+	@Operation(summary = "Atualiza uma cidade por ID")
 	@PutMapping("/{cidadeId}")
 	public CidadeDTO atualizar(@PathVariable Long cidadeId, @RequestBody @Valid CidadeInput cidadeInput) {
 		try {
@@ -79,6 +84,7 @@ public class CidadeController {
 		}
 	}
 
+	@Operation(summary = "Exclui uma cidade por ID")
 	@DeleteMapping("/{cidadeId}")
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long cidadeId) {
