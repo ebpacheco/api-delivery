@@ -16,9 +16,13 @@ import io.swagger.v3.oas.models.info.License;
 @OpenAPIDefinition
 public class SpringDoc implements WebMvcConfigurer {
 
+	// http://localhost:8080/swagger-ui/index.html#/
+
 	@Bean
 	GroupedOpenApi publicApi() {
-		return GroupedOpenApi.builder().group("public").packagesToScan("com.algaworks.algafood.api").build();
+		return GroupedOpenApi.builder().group("public").packagesToScan("com.algaworks.algafood.api")
+//				.pathsToMatch("/restaurantes/*")
+				.build();
 	}
 
 	@Bean
