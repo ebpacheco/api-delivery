@@ -26,6 +26,8 @@ import com.algaworks.algafood.domain.repository.CidadeRepository;
 import com.algaworks.algafood.domain.service.CadastroCidadeService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
@@ -54,7 +56,7 @@ public class CidadeController {
 
 	@Operation(summary = "Busca uma cidade por ID")
 	@GetMapping("/{cidadeId}")
-	public CidadeDTO buscar(@PathVariable Long cidadeId) {
+	public CidadeDTO buscar(@Parameter(description = "ID de uma cidade", example = "1") @PathVariable Long cidadeId) {
 		Cidade cidade = cadastroCidadeService.buscarOuFalhar(cidadeId);
 		return cidadeDTOAssembler.toDTO(cidade);
 	}
@@ -62,7 +64,8 @@ public class CidadeController {
 	@Operation(summary = "Cadastra uma cidade")
 	@PostMapping
 	@ResponseStatus(value = HttpStatus.CREATED)
-	public CidadeDTO adicionar(@RequestBody @Valid CidadeInput cidadeInput) {
+	public CidadeDTO adicionar(
+			@Schema(description = "Representacao de uma nova cidade") @RequestBody @Valid CidadeInput cidadeInput) {
 		try {
 			Cidade cidade = cidadeInputDisassembler.toDomainObject(cidadeInput);
 			return cidadeDTOAssembler.toDTO(cadastroCidadeService.salvar(cidade));
@@ -73,7 +76,8 @@ public class CidadeController {
 
 	@Operation(summary = "Atualiza uma cidade por ID")
 	@PutMapping("/{cidadeId}")
-	public CidadeDTO atualizar(@PathVariable Long cidadeId, @RequestBody @Valid CidadeInput cidadeInput) {
+	public CidadeDTO atualizar(@Parameter(description = "ID de uma cidade", example = "1") @PathVariable Long cidadeId,
+			@Schema(description = "Representacao de uma cidade com os novos dados") @RequestBody @Valid CidadeInput cidadeInput) {
 		try {
 			Cidade cidadeAtual = cadastroCidadeService.buscarOuFalhar(cidadeId);
 			cidadeInputDisassembler.copyToDomainObject(cidadeAtual, cidadeInput);
@@ -87,7 +91,7 @@ public class CidadeController {
 	@Operation(summary = "Exclui uma cidade por ID")
 	@DeleteMapping("/{cidadeId}")
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
-	public void remover(@PathVariable Long cidadeId) {
+	public void remover(@Parameter(description = "ID de uma cidade", example = "1") @PathVariable Long cidadeId) {
 		cadastroCidadeService.excluir(cidadeId);
 	}
 }
