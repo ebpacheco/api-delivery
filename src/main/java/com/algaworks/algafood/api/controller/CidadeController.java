@@ -3,6 +3,7 @@ package com.algaworks.algafood.api.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -59,7 +60,16 @@ public class CidadeController {
 	@GetMapping("/{cidadeId}")
 	public CidadeDTO buscar(@Parameter(description = "ID de uma cidade", example = "1") @PathVariable Long cidadeId) {
 		Cidade cidade = cadastroCidadeService.buscarOuFalhar(cidadeId);
-		return cidadeDTOAssembler.toDTO(cidade);
+
+		CidadeDTO cidadeDTO = cidadeDTOAssembler.toDTO(cidade);
+
+		cidadeDTO.add(Link.of("http://localhost:8080/cidades/1"));
+
+		cidadeDTO.add(Link.of("http://localhost:8080/cidades", "cidades"));
+
+		cidadeDTO.getEstado().add(Link.of("http://localhost:8080/estados", "estados"));
+
+		return cidadeDTO;
 	}
 
 	@Operation(summary = "Cadastra uma cidade")
