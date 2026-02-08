@@ -3,6 +3,7 @@ package com.algaworks.algafood.api.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -52,8 +53,24 @@ public class CidadeController {
 
 	@Operation(summary = "Lista as cidades")
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<CidadeDTO> listar() {
-		return cidadeDTOAssembler.toCollectionDTO(cidadeRepository.findAll());
+	public CollectionModel<CidadeDTO> listar() {
+		List<CidadeDTO> cidadesDTO = cidadeDTOAssembler.toCollectionDTO(cidadeRepository.findAll());
+
+		cidadesDTO.forEach(cidadeDTO -> {
+			cidadeDTO.add(WebMvcLinkBuilder
+					.linkTo(WebMvcLinkBuilder.methodOn(CidadeController.class).buscar(cidadeDTO.getId()))
+					.withRel("cidade"));
+
+			cidadeDTO.add(WebMvcLinkBuilder
+					.linkTo(WebMvcLinkBuilder.methodOn(EstadoController.class).buscar(cidadeDTO.getEstado().getId()))
+					.withRel("estado"));
+		});
+
+		CollectionModel<CidadeDTO> collectionModelCidadeDTO = CollectionModel.of(cidadesDTO);
+
+		collectionModelCidadeDTO.add(WebMvcLinkBuilder.linkTo(CidadeController.class).withSelfRel());
+
+		return collectionModelCidadeDTO;
 	}
 
 	@Operation(summary = "Busca uma cidade por ID")
