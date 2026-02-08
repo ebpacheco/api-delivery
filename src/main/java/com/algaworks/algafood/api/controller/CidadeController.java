@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.algaworks.algafood.api.ResourceUriHelper;
 import com.algaworks.algafood.api.assembler.CidadeDTOAssembler;
 import com.algaworks.algafood.api.assembler.CidadeInputDisassembler;
 import com.algaworks.algafood.api.model.CidadeDTO;
@@ -65,10 +66,18 @@ public class CidadeController {
 	@PostMapping
 	@ResponseStatus(value = HttpStatus.CREATED)
 	public CidadeDTO adicionar(
-			@Schema(description = "Representacao de uma nova cidade") @RequestBody @Valid CidadeInput cidadeInput) {
+			@Parameter @Schema(description = "Dados da nova cidade a ser cadastrada") @RequestBody @Valid CidadeInput cidadeInput) {
 		try {
 			Cidade cidade = cidadeInputDisassembler.toDomainObject(cidadeInput);
-			return cidadeDTOAssembler.toDTO(cadastroCidadeService.salvar(cidade));
+
+			cidade = cadastroCidadeService.salvar(cidade);
+
+			CidadeDTO cidadeDTO = cidadeDTOAssembler.toDTO(cidade);
+
+			ResourceUriHelper.addUriResponseHeader(cidadeDTO.getId());
+
+			return cidadeDTO;
+
 		} catch (EstadoNaoEncontradoException e) {
 			throw new NegocioException(e.getMessage(), e);
 		}
@@ -77,7 +86,7 @@ public class CidadeController {
 	@Operation(summary = "Atualiza uma cidade por ID")
 	@PutMapping("/{cidadeId}")
 	public CidadeDTO atualizar(@Parameter(description = "ID de uma cidade", example = "1") @PathVariable Long cidadeId,
-			@Schema(description = "Representacao de uma cidade com os novos dados") @RequestBody @Valid CidadeInput cidadeInput) {
+			@Parameter @Schema(description = "Dados atualizados da cidade") @RequestBody @Valid CidadeInput cidadeInput) {
 		try {
 			Cidade cidadeAtual = cadastroCidadeService.buscarOuFalhar(cidadeId);
 			cidadeInputDisassembler.copyToDomainObject(cidadeAtual, cidadeInput);
