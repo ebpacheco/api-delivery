@@ -63,14 +63,22 @@ public class CidadeController {
 
 		CidadeDTO cidadeDTO = cidadeDTOAssembler.toDTO(cidade);
 
-		cidadeDTO.add(WebMvcLinkBuilder.linkTo(CidadeController.class).slash(cidadeDTO.getId()).withSelfRel());
+		cidadeDTO.add(
+				WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(CidadeController.class).buscar(cidadeDTO.getId()))
+						.withRel("cidade"));
+//		cidadeDTO.add(WebMvcLinkBuilder.linkTo(CidadeController.class).slash(cidadeDTO.getId()).withSelfRel());
 //		cidadeDTO.add(Link.of("http://localhost:8080/cidades/1"));
 
-		cidadeDTO.add(WebMvcLinkBuilder.linkTo(CidadeController.class).withRel("cidades"));
+		cidadeDTO.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(CidadeController.class).listar())
+				.withRel("cidades"));
+//		cidadeDTO.add(WebMvcLinkBuilder.linkTo(CidadeController.class).withRel("cidades"));
 //		cidadeDTO.add(Link.of("http://localhost:8080/cidades", "cidades"));
 
-		cidadeDTO.getEstado().add(
-				WebMvcLinkBuilder.linkTo(EstadoController.class).slash(cidadeDTO.getEstado().getId()).withSelfRel());
+		cidadeDTO.add(WebMvcLinkBuilder
+				.linkTo(WebMvcLinkBuilder.methodOn(EstadoController.class).buscar(cidadeDTO.getEstado().getId()))
+				.withRel("estado"));
+//		cidadeDTO.getEstado().add(
+//				WebMvcLinkBuilder.linkTo(EstadoController.class).slash(cidadeDTO.getEstado().getId()).withSelfRel());
 //		cidadeDTO.getEstado().add(Link.of("http://localhost:8080/estados", "estados"));
 
 		return cidadeDTO;
