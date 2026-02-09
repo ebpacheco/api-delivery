@@ -28,10 +28,14 @@ import com.algaworks.algafood.domain.repository.CozinhaRepository;
 import com.algaworks.algafood.domain.service.CadastroCozinhaService;
 
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @RequestMapping(value = "/cozinhas")
 public class CozinhaController {
+
+//	private static final Logger logger = LoggerFactory.getLogger(CozinhaController.class);
 
 	@Autowired
 	private CozinhaRepository cozinhaRepository;
@@ -47,6 +51,7 @@ public class CozinhaController {
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public Page<CozinhaDTO> listar(@PageableDefault(size = 10) Pageable pageable) {
+		log.info("Consultando cozinhas com paginas de {} registros...", pageable.getPageSize()); // logger.info
 		Page<Cozinha> cozinhasPage = cozinhaRepository.findAll(pageable);
 		List<CozinhaDTO> cozinhaDTO = cozinhaDTOAssembler.toCollectionDTO(cozinhasPage.getContent());
 		Page<CozinhaDTO> cozinhhaDTOPage = new PageImpl<>(cozinhaDTO, pageable, cozinhasPage.getTotalElements());
