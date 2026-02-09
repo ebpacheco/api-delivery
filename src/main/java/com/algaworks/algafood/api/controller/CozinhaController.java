@@ -52,6 +52,11 @@ public class CozinhaController {
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public Page<CozinhaDTO> listar(@PageableDefault(size = 10) Pageable pageable) {
 		log.info("Consultando cozinhas com paginas de {} registros...", pageable.getPageSize()); // logger.info
+
+//		if (true) {
+//			throw new RuntimeException("Teste de Exception...");
+//		}
+
 		Page<Cozinha> cozinhasPage = cozinhaRepository.findAll(pageable);
 		List<CozinhaDTO> cozinhaDTO = cozinhaDTOAssembler.toCollectionDTO(cozinhasPage.getContent());
 		Page<CozinhaDTO> cozinhhaDTOPage = new PageImpl<>(cozinhaDTO, pageable, cozinhasPage.getTotalElements());
