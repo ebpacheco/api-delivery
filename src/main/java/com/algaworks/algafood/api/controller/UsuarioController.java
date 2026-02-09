@@ -1,8 +1,7 @@
 package com.algaworks.algafood.api.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,27 +41,27 @@ public class UsuarioController {
 	private UsuarioInputDisassembler usuarioInputDisassembler;
 
 	@GetMapping
-	public List<UsuarioDTO> listar() {
-		return usuarioDTOAssembler.toCollectionDTO(usuarioRepository.findAll());
+	public CollectionModel<UsuarioDTO> listar() {
+		return usuarioDTOAssembler.toCollectionModel(usuarioRepository.findAll());
 	}
 
 	@GetMapping(value = "/{usuarioId}")
 	public UsuarioDTO buscar(@PathVariable Long usuarioId) {
-		return usuarioDTOAssembler.toDTO(cadastroUsuarioService.buscarOuFalhar(usuarioId));
+		return usuarioDTOAssembler.toModel(cadastroUsuarioService.buscarOuFalhar(usuarioId));
 	}
 
 	@PostMapping
 	@ResponseStatus(value = HttpStatus.CREATED)
 	public UsuarioDTO adicionar(@RequestBody @Valid UsuarioComSenhaInput usuarioComSenhaInput) {
 		Usuario usuario = usuarioInputDisassembler.toDomainObject(usuarioComSenhaInput);
-		return usuarioDTOAssembler.toDTO(cadastroUsuarioService.salvar(usuario));
+		return usuarioDTOAssembler.toModel(cadastroUsuarioService.salvar(usuario));
 	}
 
 	@PutMapping("/{usuarioId}")
 	public UsuarioDTO atualizar(@PathVariable Long usuarioId, @RequestBody @Valid UsuarioInput usuarioInput) {
 		Usuario usuario = cadastroUsuarioService.buscarOuFalhar(usuarioId);
 		usuarioInputDisassembler.copyToDomainObject(usuarioInput, usuario);
-		return usuarioDTOAssembler.toDTO(cadastroUsuarioService.salvar(usuario));
+		return usuarioDTOAssembler.toModel(cadastroUsuarioService.salvar(usuario));
 	}
 
 	@PutMapping("/senha/{usuarioId}")
